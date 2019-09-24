@@ -1,0 +1,66 @@
+{
+  "inbounds": [{
+    "port": 16543,
+    "protocol": "vmess",
+    "settings": {
+      "clients": [
+        {
+          "id": "41b2878e-44e4-46f8-a611-c94af66af8fe",
+          "level": 1,
+          "alterId": 10
+        }
+      ],
+      "detour": {
+          "to": "dynamicPort"   
+      }
+    },
+    "streamSettings": {
+        "network": "kcp"
+    }
+  },
+{
+      "protocol": "vmess",
+      "port": "10000-20000",
+      "tag": "dynamicPort",
+      "settings": {
+        "default": {
+            "level": 1,
+            "alterId": 10
+        }
+      },
+      "allocate": { 
+        "strategy": "random",
+        "concurrency": 4,
+        "refresh": 2
+      },
+      "streamSettings": {
+        "network": "kcp",
+        "kcpSettings": {
+          "uplinkCapacity": 5,
+          "downlinkCapacity": 100,
+          "congestion": true,
+          "header": {
+            "type": "none"
+          }
+        }
+      }
+    }
+  ],
+  "outbounds": [{
+    "protocol": "freedom",
+    "settings": {}
+  },{
+    "protocol": "blackhole",
+    "settings": {},
+    "tag": "blocked"
+  }],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "ip": ["geoip:private"],
+        "outboundTag": "blocked"
+      }
+    ]
+  }
+}
