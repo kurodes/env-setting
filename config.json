@@ -20,7 +20,7 @@
   },
 {
       "protocol": "vmess",
-      "port": "10000-20000",
+      "port": "1024-10000",
       "tag": "dynamicPort",
       "settings": {
         "default": {
@@ -30,7 +30,7 @@
       },
       "allocate": { 
         "strategy": "random",
-        "concurrency": 4,
+        "concurrency": 2,
         "refresh": 2
       },
       "streamSettings": {
